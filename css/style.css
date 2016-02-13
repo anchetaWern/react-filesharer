@@ -1,0 +1,13 @@
+#wrapper {
+	width: 500px;
+	margin: 0 auto;
+}
+
+#main div {
+    margin: 20px 0;
+}
+
+#my_id {
+    font-weight: bold;
+	font-size: 20px;
+}
