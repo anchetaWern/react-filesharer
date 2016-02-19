@@ -136,18 +136,26 @@ module.exports = React.createClass({
 
 			var file_list = this.state.files.map(function(file){
 				return (
-					<li key={file.id}>
-						<a href={file.url} download={file.name}>{file.name}</a>
-					</li>
+					<tr key={file.id}>
+            <td>
+              <a href={file.url} download={file.name}>{file.name}</a>
+            </td>
+					</tr>
 				)
 			});
 
 			return (
 				<div id="file_list">
-				<span id="has_file_message">{this.props.opts.file_list_label || 'Files shared to you: '}</span>
-					<ul>
-					{file_list}
-					</ul>
+          <table className="mui-table mui-table--bordered">
+            <thead>
+              <tr>
+                <th>{this.props.opts.file_list_label || 'Files shared to you: '}</th>
+              </tr>
+            </thead>
+					  <tbody>
+					    {file_list}
+					  </tbody>
+					</table>
 				</div>
 			)
 
@@ -170,26 +178,34 @@ module.exports = React.createClass({
 			{
 				this.state.initialized && 
 				<div>
-					<div id="id_container">
-						{this.props.opts.my_id_label || 'Your PeerJS ID:'} <span id="my_id">{this.state.my_id}</span>
+					<div>
+            <span>{this.props.opts.my_id_label || 'Your PeerJS ID:'} </span>
+            <strong className="mui--divider-left">{this.state.my_id}</strong>
 					</div>
 					
 
 					{
 						!this.state.connected && 
-						<div id="connector_container">
-							{this.props.opts.peer_id_label || 'Peer ID'} <input type="text" id="peer_id" onChange={this.handleTextChange} />
-							<button id="connect" onClick={this.connect}>{this.props.opts.connect_label || 'connect'}</button>
+						<div>
+              <hr />
+              <div className="mui-textfield">
+                <input type="text" className="mui-textfield" onChange={this.handleTextChange} />
+                <label>{this.props.opts.peer_id_label || 'Peer ID'}</label>
+              </div>
+							<button className="mui-btn mui-btn--accent" onClick={this.connect}>{this.props.opts.connect_label || 'connect'}</button>
 						</div>
 					}
 
 					{
 						this.state.connected && 
 						<div>
-							<div id="fileinput_container">
-								{this.props.opts.file_label || 'File'} <input type="file" name="file" id="file" onChange={this.sendFile} />
+              <hr />
+							<div>
+                <input type="file" name="file" id="file" className="mui--hide" onChange={this.sendFile} />
+                <label htmlFor="file" className="mui-btn mui-btn--small mui-btn--primary mui-btn--fab">+</label>
 							</div>
-							<div id="files_container">
+							<div>
+                <hr />
 								{this.listFiles()}
 							</div>
 						</div>
