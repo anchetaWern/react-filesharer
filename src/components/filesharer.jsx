@@ -4,7 +4,7 @@ var Peer = require('peerjs');
 
 module.exports = React.createClass({
 	propTypes: {
-		optionalObject: React.PropTypes.object
+		opts: React.PropTypes.object
 	},
 
 	getInitialState: function(){
@@ -89,23 +89,24 @@ module.exports = React.createClass({
 
 	onReceiveData: function(data){
 		console.log('Received', data);
-
-		var reader = new FileReader();
+		
 		var blob = new Blob([data.file], {type: data.filetype});
-
-		reader.readAsDataURL(blob);
-
-		reader.onload = this.readerLoadComplete.bind(this, data);
+		var url = URL.createObjectURL(blob);
+		
+		this.addFile({
+			'name': data.filename,
+			'url': url
+		});
+		
 	},
 
-	readerLoadComplete: function (event) {
-		var file_url = event.target.result;
-		var file_name = data.filename;
+	addFile: function (file) {
+		
+		var file_name = file.name;
+		var file_url = file.url;
 
 		var files = this.state.files;
 		var file_id = randomstring.generate(5);
-
-		console.log(file_id);
 
 		files.push({
 			id: file_id,
