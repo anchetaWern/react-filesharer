@@ -76,15 +76,15 @@ module.exports = React.createClass({
 	},
 
 	sendFile: function(event){
-    console.log(event.target.files);
-    var file = event.target.files[0];
-    var blob = new Blob(event.target.files, {type: file.type});
+	    console.log(event.target.files);
+	    var file = event.target.files[0];
+	    var blob = new Blob(event.target.files, {type: file.type});
 
-    this.state.conn.send({
-        file: blob,
-        filename: file.name,
-        filetype: file.type
-    });
+	    this.state.conn.send({
+	        file: blob,
+	        filename: file.name,
+	        filetype: file.type
+	    });
 	},
 
 	onReceiveData: function(data){
@@ -92,7 +92,7 @@ module.exports = React.createClass({
 		
 		var blob = new Blob([data.file], {type: data.filetype});
 		var url = URL.createObjectURL(blob);
-		
+
 		this.addFile({
 			'name': data.filename,
 			'url': url
@@ -179,7 +179,7 @@ module.exports = React.createClass({
 	renderListFiles: function () {
 		return (
 			<div id="file_list">
-      	<table className="mui-table mui-table--bordered">
+      			<table className="mui-table mui-table--bordered">
 					<thead>
 					  <tr>
 					    <th>{this.props.opts.file_list_label || 'Files shared to you: '}</th>
